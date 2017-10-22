@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.EntityFrameworkCore;
 using SpyStore.DAL.EF;
 using SpyStore.Models.Entities;
-using Xunit;
-using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
+using Xunit;
 
 namespace SpyStore.DAL.Tests.ContextTests
 {
