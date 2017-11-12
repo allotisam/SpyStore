@@ -56,6 +56,10 @@ namespace SpyStore.DAL.EF
                 entity.Property(e => e.ShipDate)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("getdate()");
+
+                entity.Property(e => e.OrderTotal)
+                    .HasColumnType("money")
+                    .HasComputedColumnSql("Store.GetOrderTotal([Id])");
             });
 
             modelBuilder.Entity<OrderDetail>(entity =>
