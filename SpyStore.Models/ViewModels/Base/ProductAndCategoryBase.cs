@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SpyStore.Models.Entities.Base;
 using System.ComponentModel.DataAnnotations;
-using SpyStore.Models.Entities.Base;
 
 namespace SpyStore.Models.ViewModels.Base
 {
@@ -37,6 +34,9 @@ namespace SpyStore.Models.ViewModels.Base
 
         [MaxLength(150)]
         public string ProductImageThumb { get; set; }
+
+        [DataType(DataType.Currency), Display(Name = "Cost")]
+        public decimal UnitCost { get; set; }
 
         [DataType(DataType.Currency), Display(Name = "Price")]
         public decimal CurrentPrice { get; set; }

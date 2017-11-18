@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SpyStore.Models.ViewModels.Base;
+using System;
 using System.ComponentModel.DataAnnotations;
-using SpyStore.Models.Entities.Base;
-using SpyStore.Models.ViewModels.Base;
 
 namespace SpyStore.Models.ViewModels
 {
