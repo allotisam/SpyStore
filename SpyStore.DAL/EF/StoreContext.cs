@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SpyStore.Models.Entities;
+using System;
 
 namespace SpyStore.DAL.EF
 {
@@ -20,7 +21,17 @@ namespace SpyStore.DAL.EF
 
         public StoreContext() { }
 
-        public StoreContext(DbContextOptions options) : base(options) { }
+        public StoreContext(DbContextOptions options) : base(options)
+        {
+            try
+            {
+                Database.Migrate();
+            }
+            catch(Exception ex)
+            {
+                Console.Write(ex.Message);
+            }
+        }
 
         #endregion Constructors
 
