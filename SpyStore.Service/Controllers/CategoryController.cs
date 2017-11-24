@@ -1,46 +1,43 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using SpyStore.DAL.Repos.Interfaces;
+using SpyStore.Models.ViewModels.Base;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace SpyStore.Service.Controllers
 {
     [Route("api/[controller]")]
     public class CategoryController : Controller
     {
-        // GET: api/values
+        private ICategoryRepo CategoryRepo { get; set; }
+        private IProductRepo ProductRepo { get; set; }
+
+        public CategoryController(ICategoryRepo categoryRepo, IProductRepo productRepo)
+        {
+            CategoryRepo = categoryRepo;
+            ProductRepo = productRepo;
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(CategoryRepo.GetAll());
         }
 
-        // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            var category = CategoryRepo.Find(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            return Json(category);
         }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        [HttpGet("{categoryId}/products")]
+        public IEnumerable<ProductAndCategoryBase> GetProductsForCategory(int categoryId)
+            => ProductRepo.GetProductsForCategory(categoryId).ToList();
     }
 }
