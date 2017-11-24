@@ -10,6 +10,7 @@ using SpyStore.DAL.EF;
 using SpyStore.DAL.Initializers;
 using SpyStore.DAL.Repos;
 using SpyStore.DAL.Repos.Interfaces;
+using SpyStore.Service.Filters;
 
 namespace SpyStore.Service
 {
@@ -52,7 +53,10 @@ namespace SpyStore.Service
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services
-            services.AddMvcCore()
+            services.AddMvcCore(config =>
+                    {
+                        config.Filters.Add(new SpyStoreExceptionFilter(_env.IsDevelopment()));
+                    })
                     .AddJsonFormatters(j =>
                     {
                         j.ContractResolver = new DefaultContractResolver();
