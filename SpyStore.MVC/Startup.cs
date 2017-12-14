@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using SpyStore.MVC.Configuration;
 
 namespace SpyStore.MVC
 {
@@ -22,10 +23,16 @@ namespace SpyStore.MVC
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureService(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
             services.AddSingleton(_ => Configuration);
+            services.AddSingleton<IWebServiceLocator, WebServiceLocator>();
+
+            services.AddMvc(config =>
+            {
+
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
