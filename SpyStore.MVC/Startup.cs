@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using SpyStore.MVC.Authentication;
 using SpyStore.MVC.Configuration;
+using SpyStore.MVC.Filters;
 using SpyStore.MVC.WebServiceAccess;
 using SpyStore.MVC.WebServiceAccess.Base;
 
@@ -31,10 +33,11 @@ namespace SpyStore.MVC
             services.AddSingleton(_ => Configuration);
             services.AddSingleton<IWebServiceLocator, WebServiceLocator>();
             services.AddSingleton<IWebApiCalls, WebApiCalls>();
+            services.AddSingleton<IAuthHelper, AuthHelper>();
 
             services.AddMvc(config =>
             {
-
+                config.Filters.Add(new AuthActionFilter(services.BuildServiceProvider().GetService<IAuthHelper>()));
             });
         }
 
