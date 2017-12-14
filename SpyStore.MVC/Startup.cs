@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SpyStore.MVC.Configuration;
+using SpyStore.MVC.WebServiceAccess;
+using SpyStore.MVC.WebServiceAccess.Base;
 
 namespace SpyStore.MVC
 {
@@ -28,6 +30,7 @@ namespace SpyStore.MVC
             // Add framework services.
             services.AddSingleton(_ => Configuration);
             services.AddSingleton<IWebServiceLocator, WebServiceLocator>();
+            services.AddSingleton<IWebApiCalls, WebApiCalls>();
 
             services.AddMvc(config =>
             {
